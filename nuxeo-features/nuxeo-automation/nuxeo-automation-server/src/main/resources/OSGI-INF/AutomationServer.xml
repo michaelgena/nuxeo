@@ -17,7 +17,7 @@
     <object class="org.nuxeo.ecm.automation.server.RestBinding"/>
   </extension-point>
 
-
+  
   <extension-point name="marshallers">
     <documentation>JAX-RS writer/reader declarations</documentation>
     <object class="org.nuxeo.ecm.automation.server.MarshallerDescriptor"/>
