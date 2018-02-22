@@ -40,7 +40,10 @@ import javax.inject.Inject;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+<<<<<<< Upstream, based on origin/master
 import org.nuxeo.ecm.core.test.CoreFeature;
+=======
+>>>>>>> 569a1d3 NXP-22534: scripted and manual mass replace and cleanup
 import org.nuxeo.ecm.platform.relations.api.Graph;
 import org.nuxeo.ecm.platform.relations.api.QNameResource;
 import org.nuxeo.ecm.platform.relations.api.RelationManager;
@@ -50,9 +53,22 @@ import org.nuxeo.ecm.platform.relations.services.RelationService;
 import org.nuxeo.runtime.test.runner.Deploy;
 import org.nuxeo.runtime.test.runner.Features;
 import org.nuxeo.runtime.test.runner.FeaturesRunner;
+<<<<<<< Upstream, based on origin/master
+=======
+import org.nuxeo.runtime.test.runner.RuntimeFeature;
+>>>>>>> 569a1d3 NXP-22534: scripted and manual mass replace and cleanup
 
 @RunWith(FeaturesRunner.class)
+<<<<<<< Upstream, based on origin/master
 @Features(CoreFeature.class)
+=======
+@Features(RuntimeFeature.class)
+@Deploy("org.nuxeo.runtime.management")
+@Deploy("org.nuxeo.ecm.core.schema")
+@Deploy("org.nuxeo.ecm.core.api")
+@Deploy("org.nuxeo.ecm.core")
+@Deploy("org.nuxeo.ecm.core.event")
+>>>>>>> 569a1d3 NXP-22534: scripted and manual mass replace and cleanup
 @Deploy("org.nuxeo.ecm.relations")
 @Deploy("org.nuxeo.ecm.relations.tests:nxrelations-test-bundle.xml")
 public class TestRelationService {
@@ -138,8 +154,14 @@ public class TestRelationService {
             nameSpaces.add(qn.getNamespace());
         }
 
+<<<<<<< Upstream, based on origin/master
         Set<String> expectedNameSpaces = new HashSet<>(
                 Arrays.asList("http://nuxeo.org/nxrelations/test2/", "http://nuxeo.org/nxrelations/test/"));
+=======
+        HashSet<String> expectedNameSpaces = new HashSet<>();
+        expectedNameSpaces.addAll(Arrays.asList("http://nuxeo.org/nxrelations/test2/",
+                "http://nuxeo.org/nxrelations/test/"));
+>>>>>>> 569a1d3 NXP-22534: scripted and manual mass replace and cleanup
 
         assertEquals(expectedNameSpaces, nameSpaces);
     }
@@ -208,8 +230,14 @@ public class TestRelationService {
             nameSpaces.add(qn.getNamespace());
         }
 
+<<<<<<< Upstream, based on origin/master
         HashSet<String> expectedNameSpaces = new HashSet<>(
                 Arrays.asList("http://nuxeo.org/nxrelations/test2/", "http://nuxeo.org/nxrelations/test/"));
+=======
+        HashSet<String> expectedNameSpaces = new HashSet<>();
+        expectedNameSpaces.addAll(Arrays.asList("http://nuxeo.org/nxrelations/test2/",
+                "http://nuxeo.org/nxrelations/test/"));
+>>>>>>> 569a1d3 NXP-22534: scripted and manual mass replace and cleanup
 
         assertEquals(expectedNameSpaces, nameSpaces);
     }

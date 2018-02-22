@@ -25,17 +25,31 @@ import javax.inject.Inject;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+<<<<<<< Upstream, based on origin/master
 import org.nuxeo.ecm.core.test.CoreFeature;
 import org.nuxeo.runtime.test.runner.Deploy;
 import org.nuxeo.runtime.test.runner.Features;
 import org.nuxeo.runtime.test.runner.FeaturesRunner;
+=======
+import org.nuxeo.runtime.test.runner.Deploy;
+import org.nuxeo.runtime.test.runner.Features;
+import org.nuxeo.runtime.test.runner.FeaturesRunner;
+import org.nuxeo.runtime.test.runner.RuntimeFeature;
+>>>>>>> 569a1d3 NXP-22534: scripted and manual mass replace and cleanup
 
 /**
  * @since 7.4
  */
 @RunWith(FeaturesRunner.class)
+<<<<<<< Upstream, based on origin/master
 @Features(CoreFeature.class)
 @Deploy("org.nuxeo.ecm.core.test.tests:OSGI-INF/test-uidgenerator-contrib.xml")
+=======
+@Features(RuntimeFeature.class)
+@Deploy("org.nuxeo.ecm.core")
+@Deploy("org.nuxeo.ecm.core.schema")
+@Deploy("org.nuxeo.ecm.core:OSGI-INF/test-uidgenerator-contrib.xml")
+>>>>>>> 569a1d3 NXP-22534: scripted and manual mass replace and cleanup
 public class TestUIDSequencer {
 
     @Inject

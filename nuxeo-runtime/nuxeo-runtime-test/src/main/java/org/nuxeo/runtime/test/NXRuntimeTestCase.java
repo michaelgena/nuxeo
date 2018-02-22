@@ -46,8 +46,6 @@ import java.util.stream.Stream;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.jmock.Mockery;
-import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -105,8 +103,6 @@ import io.github.lukehutch.fastclasspathscanner.FastClasspathScanner;
 @Features({ MDCFeature.class, ConditionalIgnoreRule.Feature.class, RandomBug.Feature.class })
 @Ignore
 public class NXRuntimeTestCase implements RuntimeHarness {
-
-    protected Mockery jmcontext = new JUnit4Mockery();
 
     static {
         // jul to jcl redirection may pose problems (infinite loops) in some
@@ -405,6 +401,7 @@ public class NXRuntimeTestCase implements RuntimeHarness {
         return loader.getResource(name);
     }
 
+    @Deprecated
     protected void deployContrib(URL url) {
         assertEquals(runtime, Framework.getRuntime());
         log.info("Deploying contribution from " + url.toString());
@@ -446,6 +443,7 @@ public class NXRuntimeTestCase implements RuntimeHarness {
     /**
      * Deploy a contribution specified as a "bundleName:path" uri
      */
+    @Deprecated
     public void deployContrib(String uri) throws Exception {
         int i = uri.indexOf(':');
         if (i == -1) {
@@ -571,6 +569,7 @@ public class NXRuntimeTestCase implements RuntimeHarness {
         context.undeploy(contrib);
     }
 
+    @Deprecated
     public void undeployContrib(String uri) throws Exception {
         int i = uri.indexOf(':');
         if (i == -1) {
@@ -690,6 +689,7 @@ public class NXRuntimeTestCase implements RuntimeHarness {
     }
 
     @Override
+    @Deprecated
     public void deployFolder(File folder, ClassLoader loader) throws Exception {
         DirectoryBundleFile bf = new DirectoryBundleFile(folder);
         BundleImpl bundle = new BundleImpl(osgi, bf, loader);
@@ -733,6 +733,7 @@ public class NXRuntimeTestCase implements RuntimeHarness {
      * <p />
      * This method also calls {@link #postSetUp()} for convenience.
      */
+    @Deprecated
     protected void applyInlineDeployments() throws Exception {
         runtime.getComponentManager().refresh(false);
         runtime.getComponentManager().start(); // make sure components are started
@@ -747,6 +748,7 @@ public class NXRuntimeTestCase implements RuntimeHarness {
      * <p />
      * This method also calls {@link #postSetUp()} for convenience.
      */
+    @Deprecated
     protected void removeInlineDeployments() throws Exception {
         runtime.getComponentManager().reset();
         runtime.getComponentManager().start();
@@ -760,6 +762,7 @@ public class NXRuntimeTestCase implements RuntimeHarness {
      * <p>
      * A component URI is of the form: bundleSymbolicName:pathToComponentXmlInBundle
      */
+    @Deprecated
     public void pushInlineDeployments(String... deploymentUris) throws Exception {
         deploymentStack.add(deploymentUris);
         for (String uri : deploymentUris) {
@@ -771,6 +774,7 @@ public class NXRuntimeTestCase implements RuntimeHarness {
     /**
      * Remove the latest deployed components using {@link #pushInlineDeployments(String...)}.
      */
+    @Deprecated
     public void popInlineDeployments() throws Exception {
         if (deploymentStack.isEmpty()) {
             throw new IllegalStateException("deployment stack is empty");
@@ -778,6 +782,7 @@ public class NXRuntimeTestCase implements RuntimeHarness {
         popInlineDeployments(deploymentStack.size() - 1);
     }
 
+    @Deprecated
     public void popInlineDeployments(int index) throws Exception {
         if (index < 0 || index > deploymentStack.size() - 1) {
             throw new IllegalStateException("deployment stack index is invalid: " + index);
