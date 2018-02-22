@@ -27,6 +27,7 @@ import static org.junit.Assume.assumeTrue;
 
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.GregorianCalendar;
 
 import org.junit.After;
@@ -35,7 +36,9 @@ import org.junit.Test;
 import org.nuxeo.ecm.core.api.Lock;
 import org.nuxeo.ecm.core.model.LockManager;
 import org.nuxeo.ecm.core.storage.sql.jdbc.JDBCMapper;
+import org.nuxeo.runtime.test.runner.Deploy;
 
+@Deploy("org.nuxeo.ecm.core.storage.sql.test.tests:OSGI-INF/test-backend-core-types-contrib.xml")
 public class TestSQLBackendUpgrade extends SQLBackendTestCase {
 
     @BeforeClass
@@ -45,15 +48,9 @@ public class TestSQLBackendUpgrade extends SQLBackendTestCase {
     }
 
     @Override
-    public void setUp() throws Exception {
-        super.setUp();
-        deployContrib("org.nuxeo.ecm.core.storage.sql.test.tests", "OSGI-INF/test-backend-core-types-contrib.xml");
-        JDBCMapper.testProps.put(JDBCMapper.TEST_UPGRADE, Boolean.TRUE);
-    }
-
-    @Override
-    protected void postSetUp() throws Exception {
+    public void setUp() {
         // we do the repository creation in setUpTestProp after setting up upgrade properties
+        JDBCMapper.testProps.put(JDBCMapper.TEST_UPGRADE, Boolean.TRUE);
     }
 
     @Override
@@ -63,7 +60,7 @@ public class TestSQLBackendUpgrade extends SQLBackendTestCase {
         super.tearDown();
     }
 
-    protected void setUpTestProp(String prop) throws Exception {
+    protected void setUpTestProp(String prop) {
         for (String p : Arrays.asList(JDBCMapper.TEST_UPGRADE_VERSIONS, JDBCMapper.TEST_UPGRADE_LAST_CONTRIBUTOR,
                 JDBCMapper.TEST_UPGRADE_LOCKS)) {
             JDBCMapper.testProps.put(p, Boolean.valueOf(p.equals(prop)));
@@ -71,17 +68,17 @@ public class TestSQLBackendUpgrade extends SQLBackendTestCase {
         repository = newRepository(-1);
     }
 
-    protected static boolean isLatestVersion(Node node) throws Exception {
+    protected static boolean isLatestVersion(Node node) {
         Boolean b = (Boolean) node.getSimpleProperty(Model.VERSION_IS_LATEST_PROP).getValue();
         return b.booleanValue();
     }
 
-    protected static boolean isLatestMajorVersion(Node node) throws Exception {
+    protected static boolean isLatestMajorVersion(Node node) {
         Boolean b = (Boolean) node.getSimpleProperty(Model.VERSION_IS_LATEST_MAJOR_PROP).getValue();
         return b.booleanValue();
     }
 
-    protected static String getVersionLabel(Node node) throws Exception {
+    protected static String getVersionLabel(Node node) {
         return (String) node.getSimpleProperty(Model.VERSION_LABEL_PROP).getValue();
     }
 
@@ -142,7 +139,7 @@ public class TestSQLBackendUpgrade extends SQLBackendTestCase {
         subjects = nodea.getCollectionProperty("tst:subjects").getStrings();
         tags = nodea.getCollectionProperty("tst:tags").getStrings();
         assertEquals(Arrays.asList("z", "c"), Arrays.asList(subjects));
-        assertEquals(Arrays.asList("3"), Arrays.asList(tags));
+        assertEquals(Collections.singletonList("3"), Arrays.asList(tags));
 
         // delete the node
         // session.removeNode(nodea);
@@ -150,7 +147,7 @@ public class TestSQLBackendUpgrade extends SQLBackendTestCase {
     }
 
     @Test
-    public void testVersionsUpgrade() throws Exception {
+    public void testVersionsUpgrade() {
         setUpTestProp(JDBCMapper.TEST_UPGRADE_VERSIONS);
 
         Node ver;
@@ -190,7 +187,7 @@ public class TestSQLBackendUpgrade extends SQLBackendTestCase {
     }
 
     @Test
-    public void testLastContributorUpgrade() throws Exception {
+    public void testLastContributorUpgrade() {
         setUpTestProp(JDBCMapper.TEST_UPGRADE_LAST_CONTRIBUTOR);
 
         Node ver;
@@ -210,7 +207,7 @@ public class TestSQLBackendUpgrade extends SQLBackendTestCase {
     }
 
     @Test
-    public void testLocksUpgrade() throws Exception {
+    public void testLocksUpgrade() {
         setUpTestProp(JDBCMapper.TEST_UPGRADE_LOCKS);
 
         Session session = repository.getConnection();

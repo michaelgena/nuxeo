@@ -22,6 +22,9 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.junit.After;
+import org.junit.Before;
+import org.junit.runner.RunWith;
 import org.nuxeo.ecm.core.blob.BlobManager;
 import org.nuxeo.ecm.core.blob.BlobManagerComponent;
 import org.nuxeo.ecm.core.blob.BlobProviderDescriptor;
@@ -30,12 +33,15 @@ import org.nuxeo.ecm.core.event.EventService;
 import org.nuxeo.ecm.core.storage.sql.RepositoryDescriptor.FieldDescriptor;
 import org.nuxeo.ecm.core.storage.sql.coremodel.SQLRepositoryService;
 import org.nuxeo.runtime.api.Framework;
-import org.nuxeo.runtime.test.NXRuntimeTestCase;
+import org.nuxeo.runtime.test.runner.Features;
+import org.nuxeo.runtime.test.runner.FeaturesRunner;
 
 /**
  * @author Florent Guillaume
  */
-public abstract class SQLBackendTestCase extends NXRuntimeTestCase {
+@RunWith(FeaturesRunner.class)
+@Features(SQLBackendFeature.class)
+public abstract class SQLBackendTestCase {
 
     private static final String REPOSITORY_NAME = "test";
 
@@ -45,32 +51,16 @@ public abstract class SQLBackendTestCase extends NXRuntimeTestCase {
 
     public Repository repository2;
 
-    @Override
+    @Before
     public void setUp() throws Exception {
-        deployBundle("org.nuxeo.runtime.jtajca");
-        deployBundle("org.nuxeo.runtime.datasource");
-        deployBundle("org.nuxeo.runtime.migration");
-        deployBundle("org.nuxeo.ecm.core.api");
-        deployBundle("org.nuxeo.ecm.core");
-        deployBundle("org.nuxeo.ecm.core.schema");
-        deployBundle("org.nuxeo.ecm.core.event");
-        deployBundle("org.nuxeo.ecm.core.storage");
-        deployBundle("org.nuxeo.ecm.core.storage.sql");
-        deployBundle("org.nuxeo.ecm.platform.el");
-        DatabaseHelper.DATABASE.setUp();
-        deployContrib("org.nuxeo.ecm.core.storage", "OSGI-INF/test-repo-ds.xml");
-    }
-
-    @Override
-    protected void postSetUp() throws Exception {
         repository = newRepository(-1);
     }
 
-    protected Repository newRepository(long clusteringDelay) throws Exception {
+    protected Repository newRepository(long clusteringDelay) {
         return newRepository(null, clusteringDelay);
     }
 
-    protected Repository newRepository(String name, long clusteringDelay) throws Exception {
+    protected Repository newRepository(String name, long clusteringDelay) {
         RepositoryDescriptor descriptor = newDescriptor(name, clusteringDelay);
         RepositoryImpl repo = new RepositoryImpl(descriptor);
         SQLRepositoryService sqlRepositoryService = Framework.getService(SQLRepositoryService.class);
@@ -114,12 +104,12 @@ public abstract class SQLBackendTestCase extends NXRuntimeTestCase {
         return descr;
     }
 
-    @Override
+    @After
     public void tearDown() throws Exception {
         closeRepository();
     }
 
-    protected void closeRepository() throws Exception {
+    protected void closeRepository() {
         Framework.getService(EventService.class).waitForAsyncCompletion();
         BlobManagerComponent blobManager = (BlobManagerComponent) Framework.getService(BlobManager.class);
         for (BlobProviderDescriptor blobProviderDescriptor : blobProviderDescriptors.values()) {

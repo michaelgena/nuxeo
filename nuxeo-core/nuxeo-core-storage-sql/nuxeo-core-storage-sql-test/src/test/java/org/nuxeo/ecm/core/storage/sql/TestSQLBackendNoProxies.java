@@ -41,7 +41,7 @@ public class TestSQLBackendNoProxies extends TestSQLBackend {
     }
 
     @Test
-    public void testCreationDenied() throws Exception {
+    public void testCreationDenied() {
         Session session = repository.getConnection();
         Node root = session.getRootNode();
         Node doc = session.addChildNode(root, "doc", null, "TestDoc", false);
@@ -76,27 +76,21 @@ public class TestSQLBackendNoProxies extends TestSQLBackend {
         session2.addProxy(ver2.getId(), doc2.getId(), root2, "proxy", null);
         session2.save();
         String sql = "SELECT * FROM Document WHERE ecm:name = 'proxy'";
-        IterableQueryResult res2 = session2.queryAndFetch(sql, "NXQL", QueryFilter.EMPTY);
-        try {
+        try (IterableQueryResult res2 = session2.queryAndFetch(sql, "NXQL", QueryFilter.EMPTY)) {
             assertEquals(1, res2.size());
-        } finally {
-            res2.close();
         }
         session2.close();
 
         // now in repository viewed without proxies
         Session session = repository.getConnection();
         // same query should return no proxy
-        IterableQueryResult res = session.queryAndFetch(sql, "NXQL", QueryFilter.EMPTY);
-        try {
+        try (IterableQueryResult res = session.queryAndFetch(sql, "NXQL", QueryFilter.EMPTY)) {
             assertEquals(0, res.size());
-        } finally {
-            res.close();
         }
     }
 
     @Test
-    public void testQueryOnlyProxiesDenied() throws Exception {
+    public void testQueryOnlyProxiesDenied() {
         Session session = repository.getConnection();
         String sql = "SELECT * FROM Document WHERE ecm:isProxy = 1";
         try (IterableQueryResult res = session.queryAndFetch(sql, "NXQL", QueryFilter.EMPTY)) {
