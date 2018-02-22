@@ -133,6 +133,15 @@ public interface TrashService {
     DocumentModelList getDocuments(DocumentModel currentDoc);
 
     /**
+     * Get all document references from the trash of the current document.
+     *
+     * @since 10.1
+     * @param currentDoc The current/parent document of trash document.
+     * @return All documents in the trash of the current document.
+     */
+    List<DocumentRef> getDocumentRefs(DocumentModel currentDoc);
+
+    /**
      * Mangles the name of a document to avoid collisions with non-trashed documents when it's in the trash.
      *
      * @param doc the document
