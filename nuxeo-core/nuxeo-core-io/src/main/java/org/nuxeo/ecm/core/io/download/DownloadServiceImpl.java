@@ -577,9 +577,7 @@ public class DownloadServiceImpl extends DefaultComponent implements DownloadSer
                 }
             }
             long contentLength = byteRange == null ? length : byteRange.getLength();
-            if (contentLength < Integer.MAX_VALUE) {
-                response.setContentLength((int) contentLength);
-            }
+            response.setContentLengthLong(contentLength);
 
             logDownload(doc, xpath, filename, reason, extendedInfos);
 
