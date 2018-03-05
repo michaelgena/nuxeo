@@ -72,7 +72,7 @@ if [ ! -f "$1/templates/nuxeo.defaults" ]; then
   echo
   exit 1
 fi
-NUXEO_HOME=$1
+NUXEO_HOME="$( cd "${1}" && pwd )"
 
 if [ -z "$2" ]; then
   # autodetects latest version
