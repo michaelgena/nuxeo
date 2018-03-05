@@ -118,22 +118,16 @@ mkdir -p "${WORK_FOLDER}"
 cd "${WORK_FOLDER}"
 WGET_OPTS="$(wget --help | grep -q '\--show-progress' && echo '-q --show-progress')" || WGET_OPTS=""
 wget ${WGET_OPTS} "${TOMCAT_ARCHIVE_URL}/v${TOMCAT_TARGET}/bin/apache-tomcat-${TOMCAT_TARGET}.tar.gz"
-wget ${WGET_OPTS} "${TOMCAT_ARCHIVE_URL}/v${TOMCAT_TARGET}/bin/apache-tomcat-${TOMCAT_TARGET}.tar.gz.md5"
 wget ${WGET_OPTS} "${TOMCAT_ARCHIVE_URL}/v${TOMCAT_TARGET}/bin/apache-tomcat-${TOMCAT_TARGET}.tar.gz.sha1"
 wget ${WGET_OPTS} "${TOMCAT_ARCHIVE_URL}/v${TOMCAT_TARGET}/bin/extras/tomcat-juli-adapters.jar"
-wget ${WGET_OPTS} "${TOMCAT_ARCHIVE_URL}/v${TOMCAT_TARGET}/bin/extras/tomcat-juli-adapters.jar.md5"
 wget ${WGET_OPTS} "${TOMCAT_ARCHIVE_URL}/v${TOMCAT_TARGET}/bin/extras/tomcat-juli-adapters.jar.sha1"
 wget ${WGET_OPTS} "${TOMCAT_ARCHIVE_URL}/v${TOMCAT_TARGET}/bin/extras/tomcat-juli.jar"
-wget ${WGET_OPTS} "${TOMCAT_ARCHIVE_URL}/v${TOMCAT_TARGET}/bin/extras/tomcat-juli.jar.md5"
 wget ${WGET_OPTS} "${TOMCAT_ARCHIVE_URL}/v${TOMCAT_TARGET}/bin/extras/tomcat-juli.jar.sha1"
 
 echo
 echo "Checking archives..."
-verifyHash "apache-tomcat-${TOMCAT_TARGET}.tar.gz.md5"
 verifyHash "apache-tomcat-${TOMCAT_TARGET}.tar.gz.sha1"
-verifyHash "tomcat-juli-adapters.jar.md5"
 verifyHash "tomcat-juli-adapters.jar.sha1"
-verifyHash "tomcat-juli.jar.md5"
 verifyHash "tomcat-juli.jar.sha1"
 
 echo
