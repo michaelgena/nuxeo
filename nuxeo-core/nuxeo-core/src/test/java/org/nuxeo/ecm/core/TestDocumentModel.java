@@ -43,14 +43,9 @@ import org.nuxeo.runtime.test.runner.RuntimeFeature;
 @RunWith(FeaturesRunner.class)
 @Features(RuntimeFeature.class)
 @Deploy("org.nuxeo.runtime.jtajca")
-<<<<<<< Upstream, based on origin/master
 @Deploy("org.nuxeo.runtime.migration")
 @Deploy("org.nuxeo.ecm.core")
 @Deploy("org.nuxeo.ecm.core.schema")
-=======
-@Deploy("org.nuxeo.ecm.core.schema")
-@Deploy("org.nuxeo.ecm.core")
->>>>>>> 569a1d3 NXP-22534: scripted and manual mass replace and cleanup
 public class TestDocumentModel {
 
     @Test
