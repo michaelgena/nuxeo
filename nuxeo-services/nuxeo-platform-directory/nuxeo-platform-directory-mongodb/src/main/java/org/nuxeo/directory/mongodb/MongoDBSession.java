@@ -78,7 +78,7 @@ public class MongoDBSession extends BaseSession {
     /**
      * Prefix used to retrieve a MongoDB connection from {@link MongoDBConnectionService}.
      * <p />
-     * The connection id will be {@code directory/[DIRECTORY_NAME]}.
+     * The codnnection id will be {@code directory/[DIRECTORY_NAME]}.
      */
     public static final String DIRECTORY_CONNECTION_PREFIX = "directory/";
 

@@ -76,7 +76,7 @@ public class PropertyTrashService extends AbstractTrashService {
             } else {
                 if (!Boolean.parseBoolean(String.valueOf(doc.getContextData(DISABLE_TRASH_RENAMING)))) {
                     String newName = mangleName(doc);
-                    session.move(docRef, doc.getParentRef(), newName);
+                    doc.move(doc.getParentRef(), newName);
                 }
                 session.setDocumentSystemProp(docRef, SYSPROP_IS_TRASHED, Boolean.TRUE);
                 notifyEvent(session, DOCUMENT_TRASHED, doc,
@@ -105,7 +105,7 @@ public class PropertyTrashService extends AbstractTrashService {
         if (!Boolean.TRUE.equals(doc.getContextData(DISABLE_TRASH_RENAMING)) && parentRef != null) {
             String newName = unmangleName(doc);
             if (!newName.equals(doc.getName())) {
-                session.move(docRef, parentRef, newName);
+                doc.move(doc.getParentRef(), newName);
             }
         }
         session.setDocumentSystemProp(docRef, SYSPROP_IS_TRASHED, Boolean.FALSE);
