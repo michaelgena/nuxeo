@@ -1515,4 +1515,16 @@ public class DocumentModelImpl implements DocumentModel, Cloneable {
         return schemaManager;
     }
 
+    @Override
+    public void move(DocumentRef dst, String name) {
+        DocumentModel newDoc = getSession().move(getRef(), dst, name);
+        refresh(newDoc);
+    }
+
+    protected void refresh(DocumentModel docModel) {
+        ref = docModel.getRef();
+        parentRef = docModel.getParentRef();
+        path = docModel.getPath();
+        refresh();
+    }
 }

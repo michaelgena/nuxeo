@@ -450,6 +450,11 @@ public class ShallowDocumentModel implements DocumentModel {
     }
 
     @Override
+    public void move(DocumentRef dst, String name) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void reset() {
         throw new UnsupportedOperationException();
     }

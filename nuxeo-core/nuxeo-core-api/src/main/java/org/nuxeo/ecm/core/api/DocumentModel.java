@@ -848,6 +848,17 @@ public interface DocumentModel extends Serializable {
      */
     void refresh(int refreshFlags, String[] schemas);
 
+    /**
+     * Moves this document to the destination folder under the given name. If the name is {@code null} or if there is a
+     * collision, a suitable new name is found.
+     * <p>
+     * If the destination document is not a folder or it doesn't exists then throws an exception.
+     *
+     * @param dst the destination folder reference
+     * @param name the new name of the document, or {@code null}
+     */
+    void move(DocumentRef dst, String name);
+
     /** Info fetched internally during a refresh. */
     class DocumentModelRefresh {
 

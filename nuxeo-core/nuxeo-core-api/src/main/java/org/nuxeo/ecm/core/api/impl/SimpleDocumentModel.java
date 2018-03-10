@@ -538,6 +538,11 @@ public class SimpleDocumentModel implements DocumentModel {
     }
 
     @Override
+    public void move(DocumentRef dst, String name) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void refresh() {
         throw new UnsupportedOperationException();
     }
